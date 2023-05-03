@@ -1,0 +1,29 @@
+{% load i18n %}
+
+
+{% for site in sites %}
+  <div class="modal fade" tabindex="-1" id="delete-site-{{ site.id }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">{% trans "Delete Site" %}</h3>
+          <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+            <span class="svg-icon svg-icon-1"></span>
+          </div>
+        </div>
+        <form action="{% url "delete-site" site.id %}" method="post">
+          {% csrf_token %}
+          <div class="modal-body">
+            <p>{% trans "Are you sure you would like to delete this site!" %}</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+            <button type="submit" class="btn btn-primary">{% trans "Yes, delete it!" %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+

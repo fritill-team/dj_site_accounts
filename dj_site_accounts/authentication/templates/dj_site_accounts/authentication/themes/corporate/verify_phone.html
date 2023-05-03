@@ -1,0 +1,15 @@
+{% extends "dj_accounts/authentication/themes/corporate/base.html" %}
+{% load static i18n %}
+
+{% block form %}
+  <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+    <div class="w-lg-500px p-10">
+      {{ form.errors }}
+      {% include "dj_accounts/authentication/partials/_phone_verification.html" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static "dj_accounts/js/custom/authentication/sign-in/two-steps.js" %}"></script>
+{% endblock %}

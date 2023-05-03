@@ -1,0 +1,23 @@
+{% load static %}
+<ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px">
+  {% for site in sites %}
+    <li class="nav-item w-100 me-0 mb-md-2">
+      <a class="nav-link w-100 btn btn-flex {% if forloop.first %} active{% endif %}"
+         data-bs-toggle="tab"
+         href="#site-{{ site.id }}">
+        <span class="symbol symbol-40px symbol-circle me-3">
+          {% if site.siteprofile.logo %}
+            <span class="symbol-label" style="background-image: url('{{ site.siteprofile.logo.url }}')"></span>
+          {% else %}
+            <span class="symbol-label"
+                  style="background-image: url('{% static "dj_accounts/images/icon.svg" %}')"></span>
+          {% endif %}
+        </span>
+        <span class="d-flex flex-column align-items-start">
+          <span class="fs-4 fw-bold">{{ site.name }}</span>
+          <span class="fs-7">{{ site.domain }}</span>
+      </span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

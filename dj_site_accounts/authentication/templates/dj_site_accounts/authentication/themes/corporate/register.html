@@ -1,0 +1,58 @@
+{% extends 'dj_accounts/authentication/themes/corporate/base.html' %}
+{% load i18n %}
+{% load static %}
+
+
+{% block form %}
+  <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+    <div class="w-lg-500px p-10">
+      <form class="form w-100"
+            method="post"
+            novalidate="novalidate"
+            action="{% url "register" %}">
+        {% csrf_token %}
+
+        {% trans "Sign Up" as page_title %}
+        {% include 'dj_accounts/authentication/partials/_page_header.html' with title=page_title %}
+
+        {#        {% include "dj_accounts/authentication/themes/corporate/partials/_social_login.html" %}#}
+
+        {% include 'dj_accounts/authentication/partials/_form_errors.html' %}
+        <div class="row row-cols-2">
+          {% for field in form %}
+            {% if field.html_name != 'password1' and field.html_name != 'password2' and field.html_name != 'username' and field.html_name != 'toc' %}
+              <div class="col">
+                {% include 'dj_accounts/authentication/partials/fields/_input.html' with field=field %}
+              </div>
+            {% elif field.html_name == 'password1' or field.html_name == 'password2' %}
+              <div class="col-12">
+                {% include 'dj_accounts/authentication/partials/fields/_password_meter.html' with field=field %}
+              </div>
+            {% else %}
+              <div class="col-12">
+                {% include 'dj_accounts/authentication/partials/fields/_input.html' with field=form.username %}
+              </div>
+
+            {% endif %}
+
+          {% endfor %}
+        </div>
+
+        <div class="d-grid mb-10">
+          <button type="submit" class="btn btn-primary">
+            {% trans "Sign In" %}
+          </button>
+        </div>
+
+        <div class="text-gray-500 text-center fw-semibold fs-6">
+          {% trans "Already have an Account?" %}
+          <a href="{% url "login" %}" class="link-primary fw-semibold">{% trans "Sign in" %}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static "dj_accounts/js/custom/auth/sign-in/general.js" %}"></script>
+{% endblock %}

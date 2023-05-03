@@ -1,0 +1,23 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html {% include "dj_accounts/layout/layout/_localization.html" %}>
+{% include 'dj_accounts/authentication/partials/_head.html' %}
+
+<body id="kt_body" class="app-blank app-blank">
+
+{% include 'dj_accounts/authentication/partials/_theme.html' %}
+
+{% block layout %}{% endblock %}
+
+<script src="{% url 'javascript-catalog' %}"></script>
+<script>
+  window.gettext = gettext
+</script>
+
+{% include 'dj_accounts/authentication/partials/_scripts.html' %}
+
+{% block base_scripts %}{% endblock %}
+</body>
+</html>

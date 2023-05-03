@@ -1,0 +1,7 @@
+{% load i18n %}
+<div class="text-center mb-11">
+  <h1 class="text-dark fw-bolder mb-3">{{ title }}</h1>
+  {% if has_social_auth %}
+    <div class="text-gray-500 fw-semibold fs-6">{% trans "Using Social Media Account" %}</div>
+  {% endif %}
+</div>

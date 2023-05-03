@@ -1,0 +1,24 @@
+{% load i18n get_lang %}
+<div class="d-flex flex-start flex-wrap px-5">
+  <!--begin::Links-->
+  <div class="d-flex fw-semibold text-primary fs-base align-items-center">
+
+    <div>
+      <a href="" class="px-5" target="_blank"
+         data-kt-menu-trigger="click"
+         data-kt-menu-placement="bottom-start">
+        {% trans "Language" %}
+        <span class="fs-8 rounded bg-light px-3 py-2">
+          {% get_lang LANGUAGE_CODE %}
+        </span>
+      </a>
+      <div
+          class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
+          data-kt-menu="true">
+        {% include "dj_accounts/layout/partials/menus/__langauage_menu.html" %}
+      </div>
+    </div>
+    {% include "dj_accounts/layout/partials/theme-mode/_main.html" %}
+  </div>
+  <!--end::Links-->
+</div>

@@ -1,0 +1,51 @@
+{% extends 'dj_accounts/emails/base.html' %}
+{% load i18n %}
+
+{% block body %}
+  {% autoescape off %}
+    <tr>
+      <td align="left" valign="center">
+        <div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">
+          <div style="padding-bottom: 30px; font-size: 17px;">
+            {% blocktrans with site_name=site.siteprofile.translated_name %}
+              <strong>Welcome to {{ site_name }}</strong>
+            {% endblocktrans %}
+          </div>
+          <div style="padding-bottom: 30px">
+            {% blocktranslate with site_name=site.siteprofile.translated_name %}You're receiving this email because you
+              registered new account at
+              {{ site_name }}.{% endblocktranslate %}
+            {% blocktranslate %} To activate your account, please click on the button below to verify your email
+              address.{% endblocktranslate %}
+          </div>
+
+          <div style="padding-bottom: 40px; text-align:center;">
+            <a href="{{ protocol }}://{{ site.domain }}{% url 'verify-email' uidb64=uid token=token %}" rel="noopener"
+               style="text-decoration:none;display:inline-block;text-align:center;background-color:#009ef7;padding:0.75575rem 1.3rem;font-size:0.925rem;line-height:1.5;border-radius:0.35rem;color:#ffffff;border:0px;margin-right:0.75rem!important;font-weight:600!important;outline:none!important;vertical-align:middle"
+               target="_blank">{% translate "Activate Account" %}</a>
+          </div>
+
+          <div style="padding-bottom: 30px">
+            {% translate 'Your username, in case you’ve forgotten:' %} {{ user.get_username }}
+          </div>
+
+          <div style="border-bottom: 1px solid #eeeeee; margin: 15px 0"></div>
+          <div style="padding-bottom: 50px; word-wrap: break-word">
+            <p style="margin-bottom: 10px;">
+              {% translate "Button not working? Try pasting this URL into your browser:" %}
+            </p>
+            <a href="{{ protocol }}://{{ site.domain }}{% url 'verify-email' uidb64=uid token=token %}" rel="noopener"
+               target="_blank"
+               style="text-decoration:none;color:green">{{ protocol }}://{{ site.domain }}{% url 'verify-email' uidb64=uid token=token %}</a>
+          </div>
+
+          <div style="padding-bottom: 30px">
+            {% translate "Thanks for using our site!" %}
+          </div>
+        </div>
+      </td>
+    </tr>
+  {% endautoescape %}
+{% endblock %}
+
+

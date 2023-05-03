@@ -1,0 +1,9 @@
+Django==3.2
+djangorestframework==3.12.4
+djangorestframework-simplejwt==5.1.0
+factory-boy==3.2.0
+django-environ==0.9.0
+pyotp==2.8.0
+dynamic-listing==0.0.8
+phonenumbers==8.13.5
+django-phonenumber-field==7.0.2

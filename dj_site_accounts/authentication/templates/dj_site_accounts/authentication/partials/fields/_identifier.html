@@ -1,0 +1,22 @@
+{% load auth %}
+<div class="mb-8">
+  <label class="sr-only" for="{{ form.identifier.id_for_label }}">{{ form.identifier.label }}</label>
+
+  <input type="text"
+         id="{{ form.identifier.id_for_label }}"
+         name="{{ form.identifier.html_name }}"
+         placeholder="{% get_authentication_field_placeholder %}"
+         value="{{ form.identifier.value|default_if_none:'' }}"
+         autocomplete="off"
+         class="form-control bg-transparent"/>
+
+  {% if form.identifier.errors %}
+    <div class="invalid-feedback" id="{{ form.identifier.id_for_label }}-feedback">
+      {% for error in field.errors %}
+        <div>{{ error }}</div>
+      {% endfor %}
+    </div>
+  {% elif field.help_text %}
+    <div class="text-muted mt-1">{{ field.help_text }}</div>
+  {% endif %}
+</div>

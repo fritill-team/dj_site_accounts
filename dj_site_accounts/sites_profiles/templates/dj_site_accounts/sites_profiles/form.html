@@ -1,0 +1,45 @@
+{% extends "base_template/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form
+        enctype="multipart/form-data"
+        {% if form.instance.pk %}
+        action="{% url "edit-site" site.id %}"
+        {% else %}
+        action="{% url "create-site" %}"
+        {% endif %}
+        method="post">
+      {% csrf_token %}
+      <div class="card-body">
+        <div class="d-flex flex-nowrap">
+          <div class="flex-grow-1">
+            {% for field in form %}
+              {% if not field.is_hidden %}
+                {% if field.html_name != 'logo' %}
+                  {% include 'dj_site_accounts/authentication/partials/fields/_input.html' with field=field show_label=True %}
+                {% endif %}
+              {% else %}
+                {{ field }}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="ms-md-12">
+            <p class="fw-bold">{% trans "Logo" %}</p>
+            {% include 'dj_site_accounts/authentication/partials/fields/_image_input.html' with field=form.logo %}
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end">
+        <a href="{% url "sites-view" %}" class="btn btn-text text-danger me-2">{% trans "Cancel" %}</a>
+        <button class="btn btn-primary">{% trans "Submit" %}</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load static i18n %}
+<form class="form w-100 mb-13"
+      method="post"
+    {% if phone_id %}
+      action="{% url "verify-phone-by-id" phone_id %}"
+    {% else %}
+      action="{% url "verify-phone" %}"
+    {% endif %}>
+  {% csrf_token %}
+  <input type="hidden" id="id_code" name="code">
+  <div class="text-center mb-10">
+    <img alt="Logo" class="mh-125px" src="{% static "dj_accounts/images/smartphone-2.svg" %}"/>
+  </div>
+  <div class="text-center mb-10">
+    <h1 class="text-dark mb-3">{% trans "Verify your phone" %}</h1>
+    <div class="text-muted fw-semibold fs-5 mb-5">{% trans "Enter the verification code we sent to" %}</div>
+    <div class="fw-bold text-dark fs-3" dir="ltr">{{ hashed_phone }}</div>
+  </div>
+  <div class="mb-10">
+    <div class="fw-bold text-start text-dark fs-6 mb-1 ms-1">
+      {% blocktrans with length=otp_length %}Type your {{ length }} digit security code {% endblocktrans %}
+    </div>
+    <div class="d-flex flex-wrap flex-stack" dir="ltr">
+      {% for i in otp_range %}
+        <input data-otp-input="{{ i }}"
+               type="text"
+               data-inputmask="'mask': '9', 'placeholder': ''"
+               maxlength="1"
+               class="form-control bg-transparent h-60px w-60px fs-2qx text-center mx-1 my-2" value=""/>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex flex-center">
+    <button type="submit" id="form-submit" class="btn btn-lg btn-primary fw-bold disabled">
+      {% trans "Submit" %}
+    </button>
+  </div>
+</form>
+<div class="text-center fw-semibold fs-5"
+     data-otp-expires-at="{{ otp_expiry }}"
+     data-resend-url="{% url "resend_phone_activation" %}"></div>

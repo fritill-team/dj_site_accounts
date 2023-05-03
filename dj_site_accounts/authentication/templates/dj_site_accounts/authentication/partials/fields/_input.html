@@ -1,0 +1,23 @@
+{% load auth %}
+<div class="mb-8">
+  <label
+      for="{{ field.id_for_label }}"
+      {% if show_label %}
+      class="{% if  field.field.required %}required {% endif %}form-label"
+      {% else %}
+      class="sr-only"
+      {% endif %}>{{ field.label }}</label>
+
+  {{ field }}
+
+  {% if field.errors %}
+    <div class="invalid-feedback" id="{{ field.id_for_label }}-feedback">
+      {% for error in field.errors %}
+        <div>{{ error }}</div>
+      {% endfor %}
+
+    </div>
+  {% elif field.help_text %}
+    <div class="text-muted mt-1">{{ field.help_text }}</div>
+  {% endif %}
+</div>
